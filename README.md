@@ -4,6 +4,8 @@ An `xsetroot` based statusbar for dwm, that uses asyncronous blocks
 to save on performance.
 Written entirely in bash, designed to be easily understandable and extensible.
 
+![Example Image](screenshot.jpg)
+
 ## Install
 - clone this repo
 - cd into the directory: `cd dwm_asyncbar`
