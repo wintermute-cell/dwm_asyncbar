@@ -28,9 +28,16 @@ nettraf(){ # displays up- and download traffic
 }
 
 battery(){ # displays battery % and charging state if a battery is present
-    if [ -d /sys/class/power_supply/BAT1 ]; then
-        battery=$(cat /sys/class/power_supply/BAT1/capacity)
-        charge_status=$(cat /sys/class/power_supply/BAT1/status)
+    batpath="/sys/class/power_supply/"
+    if [ -d ${batpath}BAT0 ] || [ -d ${batpath}BAT1 ]; then
+        # prefer showing external BAT1 over internal BAT0
+        if [ -f ${batpath}BAT1/capacity ]; then
+            battery=$(cat ${batpath}BAT1/capacity)
+            charge_status=$(cat ${batpath}BAT1/status)
+        elif [ -f ${batpath}BAT0/capacity ]; then
+            battery=$(cat ${batpath}BAT0/capacity)
+            charge_status=$(cat ${batpath}BAT0/status)
+        fi
         charge_symbol="?"
         if [ "$charge_status" = "Discharging" ]; then
             charge_symbol=""
