@@ -40,9 +40,9 @@ battery(){ # displays battery % and charging state if a battery is present
         fi
         charge_symbol="?"
         if [ "$charge_status" = "Discharging" ]; then
-            charge_symbol=""
+            charge_symbol="-"
         else
-            charge_symbol=""
+            charge_symbol="+"
         fi
         echo -e "$charge_symbol $battery% $SEP"
     else
@@ -57,6 +57,8 @@ dte(){ # displays date and time
 
 
 
+# kill old process
+killall dwm_asyncbar.sh
 
 # pipes for communication between the differently timed loops
 mkfifo /tmp/dwmbar_shortpipe
